@@ -1,20 +1,26 @@
 #include <gtk/gtk.h>
 #include <cstdlib>
+#include <chrono>
+#include <thread>
 
-void show_widget(GtkWidget *widget, gpointer data);
-void hide_widget(GtkWidget *widget, gpointer data);
-void launch_kodi();
-void fix_net();
-void restart_dialogue(GtkWidget *widget, gpointer data);
-void restart_dev();
-void check_updates();
+using namespace std::this_thread;
+using namespace std::chrono;
+
+static void show_widget(GtkWidget *widget, gpointer data);
+static void hide_widget(GtkWidget *widget, gpointer data);
+static void launch_kodi();
+static void fix_net(GtkWidget *widget, gpointer data);
+static void restart_dialogue(GtkWidget *widget, gpointer data);
+static void restart_dev();
+static void check_updates();
+static void button_click(GtkWidget *widget, gpointer data);
 
 int main(int argc, char **argv)
 {
 	GtkBuilder *builder;
 
    // main window
-   GObject *main, *box, *menu, *title, *kodi, *net, *restart, *update;
+   GObject *main, *box, *menu, *title, *kodi, *network, *restart, *update;
    // menu bar
    GObject *menu_file, *menu_help, *sub_file, *sub_help, *menu_quit, *menu_about;
    // about window
@@ -34,7 +40,7 @@ int main(int argc, char **argv)
 	menu		= gtk_builder_get_object(builder, "menu");
 	title 	= gtk_builder_get_object(builder, "title");
 	kodi		= gtk_builder_get_object(builder, "kodi");
-	net 		= gtk_builder_get_object(builder, "net");
+	network  = gtk_builder_get_object(builder, "network");
 	restart	= gtk_builder_get_object(builder, "restart");
 	update	= gtk_builder_get_object(builder, "update");
 
@@ -68,7 +74,7 @@ int main(int argc, char **argv)
 
 	// main buttons
 	g_signal_connect(kodi, "clicked", G_CALLBACK(launch_kodi), NULL);
-	g_signal_connect(net, "clicked", G_CALLBACK(fix_net), NULL);
+	g_signal_connect(network, "clicked", G_CALLBACK(fix_net), NULL);
 	g_signal_connect(restart, "clicked", G_CALLBACK(restart_dialogue), restart_win);
 	g_signal_connect(update, "clicked", G_CALLBACK(check_updates), NULL);
 
@@ -84,37 +90,37 @@ int main(int argc, char **argv)
 	return 0;
 }
 
-void show_widget(GtkWidget *widget, gpointer data)
+static void show_widget(GtkWidget *widget, gpointer data)
 {
 	gtk_widget_show(GTK_WIDGET(data));
 }
 
-void hide_widget(GtkWidget *widget, gpointer data)
+static void hide_widget(GtkWidget *widget, gpointer data)
 {
 	gtk_widget_hide(GTK_WIDGET(data));
 }
 
-void launch_kodi()
+static void launch_kodi()
 {
 	system("kodi");
 }
 
-void fix_net()
+static void fix_net(GtkWidget *widget, gpointer data)
 {
-   system("echo 'not yet implemented'");
+   system("./wifi.sh");
 }
 
-void restart_dialogue(GtkWidget *widget, gpointer data)
+static void restart_dialogue(GtkWidget *widget, gpointer data)
 {
 	gtk_widget_show(GTK_WIDGET(data));
 }
 
-void restart_dev()
+static void restart_dev()
 {
    system("reboot");
 }
 
-void check_updates()
+static void check_updates()
 {
-   system("sudo apt update && sudo apt upgrade");
+   system("sudo apt -y update && sudo apt -y upgrade");
 }
