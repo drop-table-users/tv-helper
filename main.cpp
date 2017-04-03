@@ -1,14 +1,6 @@
 #include <gtk/gtk.h>
 #include <cstdlib>
 
-/*
-struct restart_data
-{
-	GObject *window;
-	bool conf;
-};
-*/
-
 void show_widget(GtkWidget *widget, gpointer data);
 void hide_widget(GtkWidget *widget, gpointer data);
 void launch_kodi();
