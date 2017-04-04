@@ -71,6 +71,10 @@ def main():
         button.connect('clicked', hide_widget, fix_label)
     gobject.timeout_add(5000, timeout_hide, fix_label)
 
+    buttons = (kodi, network, restart)
+    for button in buttons:
+        button.connect('clicked', hide_widget, expander)
+
     gtk.main()
 
 def show_widget(widget, data):
@@ -103,8 +107,11 @@ def _update_textview(view, stream):
 
 def check_updates(widget, data):
     data[0].set_text("Checking for updates. Please wait.")
+    data[0].show()
     data[2].show()
-    stream = subprocess.Popen('ping -c 3 google.com'.split(' '), stdout=subprocess.PIPE)
+#    stream = subprocess.Popen('ping -c 3 google.com'.split(' '), stdout=subprocess.PIPE)
+# that was for testing purposes only
+    stream = subprocess.Popen('sudo apt update && sudo apt upgrade'.split(' '), stdout=subprocess.PIPE)
 
     gobject.timeout_add(100, _update_textview, data[1], stream)
 
