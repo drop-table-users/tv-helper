@@ -2,6 +2,7 @@
 import gi
 import subprocess
 import time
+import sys
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk as gtk
@@ -9,6 +10,11 @@ from gi.repository import GObject as gobject
 
 def main():
 
+    try:
+        if sys.platform != 'linux':
+            raise RuntimeError("This application was developed for use on GNU/Linux or BSD only.")
+    except RuntimeError:
+        sys.exit(1)
     builder = gtk.Builder()
     builder.add_from_file("main.ui")
 
@@ -94,7 +100,7 @@ def launch_kodi(trash): # trash var to intercept widget signal emit
     try:
         subprocess.call(['kodi'])
     except FileNotFoundError:
-        print("Kodi is not installed. Go to Help→Install Kodi to fix this.\n")
+        print("Kodi is not installed. Go to Help→Install Kodi to fix this.")
 
 def fix_net(widget, data):
     # TODO implement a search function maybe
