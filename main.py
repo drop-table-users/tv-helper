@@ -7,7 +7,6 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk as gtk
 from gi.repository import GObject as gobject
 
-
 def main():
 
     builder = gtk.Builder()
@@ -24,6 +23,9 @@ def main():
     restart	= builder.get_object("restart");
     update = builder.get_object("update");
     fix_label = builder.get_object("fix-label")
+    expander = builder.get_object("expander")
+    update_label = builder.get_object("update-label")
+    update_text = builder.get_object("update-text")
     # menu bar
     menu_file = builder.get_object("menu_file");
     menu_help = builder.get_object("menu_help");
@@ -55,11 +57,12 @@ def main():
     kodi.connect('clicked', launch_kodi)
     network.connect('clicked', fix_net, fix_label)
     restart.connect('clicked', show_widget, restart_win)
-    update.connect('clicked', check_updates, fix_label)
+    update_tuple = (fix_label, update_text, expander)
+    update.connect('clicked', check_updates, update_tuple)
     # about window
     about_ok.connect('clicked', hide_widget, about)
     # restart window
-    restart_ok.connect('clicked', restart_dev)
+    restart_ok.connect('clicked', _restart_dev)
     restart_cancel.connect('clicked', hide_widget, restart_win)
 
     # thing to hide the fix label
@@ -74,6 +77,7 @@ def show_widget(widget, data):
     data.show()
 def hide_widget(widget, data):
     data.hide()
+
 def timeout_hide(label):
     gobject.timeout_add(5000, timeout_hide, label)
     # recursive timeout_add to keep it from self-destructing
@@ -89,15 +93,20 @@ def fix_net(widget, data):
     #subprocess.call('sudo wpa_supplicant -iwlan0 -Dwext -c /etc/wpa_supplicant/wpa_supplicant.conf &'.split(' '))
     #subprocess.call(['sudo', 'dhcpcd'])
 
-def restart_dev():
+def _restart_dev():
     subprocess.call(['reboot'])
 
-def check_updates(widget, data):
-    data.set_text("Checking for updates. Please wait.")
-#   subprocess.call(['sudo', 'apt', '-y', 'update', '&&', 'sudo', 'apt', '-y', 'upgrade'])
-    update_string = subprocess.check_output(['yaourt', '-Syu'])
-    data.set_text(update)
+def _update_textview(view, stream):
+    view.get_buffer().insert_at_cursor(stream.communicate()[0].decode('utf-8'))
+    return stream.poll() is None
 
+
+def check_updates(widget, data):
+    data[0].set_text("Checking for updates. Please wait.")
+    data[2].show()
+    stream = subprocess.Popen('ping -c 3 google.com'.split(' '), stdout=subprocess.PIPE)
+
+    gobject.timeout_add(100, _update_textview, data[1], stream)
 
 
 if __name__ == '__main__':
