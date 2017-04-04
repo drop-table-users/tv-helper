@@ -59,6 +59,7 @@ def main():
     menu_quit.connect('activate', gtk.main_quit)
     menu_about.connect('activate', show_widget, about)
     about.connect('destroy', hide_widget, about) # don't destroy the about window, just hide it
+    window.set_icon_from_file("pepe.jpg")
     # main window buttons
     kodi.connect('clicked', launch_kodi)
     network.connect('clicked', fix_net, fix_label)
