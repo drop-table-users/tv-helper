@@ -81,7 +81,7 @@ def show_widget(widget, data):
     data.show()
 
 def hide_widget(widget, data):
-    print("called by", widget)
+    print("\ncalled by", widget)
     print ("request to hide", data)
     data.hide()
 
