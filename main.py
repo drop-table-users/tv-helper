@@ -27,8 +27,8 @@ def main():
     update_label = builder.get_object("update-label")
     update_text = builder.get_object("update-text")
     # menu bar
-    menu_file = builder.get_object("menu_file");
-    menu_help = builder.get_object("menu_help");
+    menu_file = builder.get_object("menu-file");
+    menu_help = builder.get_object("menu-help");
     sub_file = builder.get_object("sub-file");
     menu_quit = builder.get_object("menu-quit");
     sub_help = builder.get_object("sub-help");
