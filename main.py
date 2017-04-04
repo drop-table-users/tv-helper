@@ -23,7 +23,7 @@ def main():
     restart	= builder.get_object("restart");
     update = builder.get_object("update");
     fix_label = builder.get_object("fix-label")
-    expander = builder.get_object("expander")
+    expand = builder.get_object("expander")
     update_label = builder.get_object("update-label")
     update_text = builder.get_object("update-text")
     # menu bar
@@ -57,7 +57,7 @@ def main():
     kodi.connect('clicked', launch_kodi)
     network.connect('clicked', fix_net, fix_label)
     restart.connect('clicked', show_widget, restart_win)
-    update_tuple = (fix_label, update_text, expander)
+    update_tuple = (fix_label, update_text, expand)
     update.connect('clicked', check_updates, update_tuple)
     # about window
     about_ok.connect('clicked', hide_widget, about)
@@ -73,12 +73,13 @@ def main():
 
     buttons = (kodi, network, restart)
     for button in buttons:
-        button.connect('clicked', hide_widget, expander)
+        button.connect('clicked', hide_widget, expand)
 
     gtk.main()
 
 def show_widget(widget, data):
     data.show()
+
 def hide_widget(widget, data):
     print("called by", widget)
     print ("request to hide", data)
