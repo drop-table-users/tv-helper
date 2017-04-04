@@ -110,7 +110,7 @@ def fix_net(widget, data):
     subprocess.call('sudo wpa_supplicant -iwlan0 -Dwext -c /etc/wpa_supplicant/wpa_supplicant.conf &'.split(' '))
     subprocess.call(['sudo', 'dhcpcd'])
 
-def _restart_dev(arg_catcher0, arg_catcher1):
+def _restart_dev(arg_catcher0):
     subprocess.call(['reboot'])
 
 def _update_textview(view, stream):
