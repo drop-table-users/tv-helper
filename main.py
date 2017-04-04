@@ -80,6 +80,7 @@ def main():
 def show_widget(widget, data):
     data.show()
 def hide_widget(widget, data):
+    print("Called by", widget)
     data.hide()
 
 def timeout_hide(label):
