@@ -21,37 +21,23 @@ def main():
     ## declarations
     # main window
     main = builder.get_object("main");
-    box	= builder.get_object("box");
-    menu = builder.get_object("menu");
-    title = builder.get_object("title");
     kodi = builder.get_object("kodi");
     network = builder.get_object("network");
     restart	= builder.get_object("restart");
     update = builder.get_object("update");
     fix_label = builder.get_object("fix-label")
     expand = builder.get_object("expander")
-    update_label = builder.get_object("update-label")
     update_text = builder.get_object("update-text")
     # menu bar
-    menu_file = builder.get_object("menu-file");
-    menu_help = builder.get_object("menu-help");
-    sub_file = builder.get_object("sub-file");
     menu_quit = builder.get_object("menu-quit");
-    sub_help = builder.get_object("sub-help");
     menu_about = builder.get_object("menu-about");
     # about window
     about = builder.get_object("about");
-    about_box = builder.get_object("about-box");
     about_ok = builder.get_object("about-ok");
-    about_text = builder.get_object("about-text");
-    license	= builder.get_object("license");
     # restart window
     restart_win = builder.get_object("restart-win");
-    restart_box = builder.get_object("restart-box");
-    restart_bbox = builder.get_object("restart-bbox");
     restart_ok = builder.get_object("restart-ok");
     restart_cancel = builder.get_object("restart-cancel");
-    restart_text = builder.get_object("restart-text");
 
     ## buttons
     # misc
@@ -110,7 +96,7 @@ def fix_net(widget, data):
     subprocess.call('sudo wpa_supplicant -iwlan0 -Dwext -c /etc/wpa_supplicant/wpa_supplicant.conf &'.split(' '))
     subprocess.call(['sudo', 'dhcpcd'])
 
-def _restart_dev(arg_catcher0):
+def _restart_dev(arg_catcher):
     subprocess.call(['reboot'])
 
 def _update_textview(view, stream):
