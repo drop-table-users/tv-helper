@@ -91,7 +91,10 @@ def timeout_hide(label):
     label.hide()
 
 def launch_kodi(trash): # trash var to intercept widget signal emit
-    subprocess.call(['kodi'])
+    try:
+        subprocess.call(['kodi'])
+    except FileNotFoundError:
+        print("Kodi is not installed. Go to Help→Install Kodi to fix this.\n")
 
 def fix_net(widget, data):
     # TODO implement a search function maybe
