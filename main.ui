@@ -146,7 +146,7 @@
             <property name="margin_left">100</property>
             <property name="margin_right">100</property>
             <property name="margin_top">3</property>
-            <property name="margin_bottom">6</property>
+            <property name="margin_bottom">11</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -155,8 +155,35 @@
           </packing>
         </child>
         <child>
+          <object class="GtkExpander" id="expander">
+            <property name="can_focus">True</property>
+            <child>
+              <object class="GtkTextView" id="update-text">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="editable">False</property>
+                <property name="monospace">True</property>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="update-label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Update Results</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLabel" id="fix-label">
             <property name="can_focus">False</property>
+            <property name="margin_top">4</property>
+            <property name="margin_bottom">7</property>
             <property name="label" translatable="yes">Fix applied.</property>
             <attributes>
               <attribute name="font-desc" value="Liberation Sans 12"/>
@@ -165,7 +192,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">6</property>
+            <property name="position">7</property>
           </packing>
         </child>
       </object>
@@ -176,8 +203,9 @@
   </object>
   <object class="GtkWindow" id="about">
     <property name="can_focus">False</property>
-    <property name="type">popup</property>
     <property name="window_position">center</property>
+    <property name="default_width">460</property>
+    <property name="default_height">720</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="gravity">center</property>
@@ -214,10 +242,12 @@
           <object class="GtkLabel" id="license">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">9</property>
-            <property name="margin_right">9</property>
+            <property name="margin_left">11</property>
+            <property name="margin_right">11</property>
             <property name="margin_top">4</property>
-            <property name="margin_bottom">4</property>
+            <property name="margin_bottom">5</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
             <property name="label" translatable="yes">Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -241,8 +271,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="margin_left">100</property>
-            <property name="margin_right">100</property>
+            <property name="margin_left">200</property>
+            <property name="margin_right">200</property>
             <property name="margin_top">4</property>
             <property name="margin_bottom">4</property>
             <property name="vexpand">False</property>
@@ -261,7 +291,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
   </object>
   <object class="GtkDialog" id="restart-win">
     <property name="can_focus">False</property>
-    <property name="type">popup</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">main</property>
     <child internal-child="vbox">
