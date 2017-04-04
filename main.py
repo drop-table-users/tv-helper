@@ -94,8 +94,8 @@ def fix_net(widget, data):
     # TODO implement a search function maybe
     data.set_text("Fix applied.")
     data.show()
-    #subprocess.call('sudo wpa_supplicant -iwlan0 -Dwext -c /etc/wpa_supplicant/wpa_supplicant.conf &'.split(' '))
-    #subprocess.call(['sudo', 'dhcpcd'])
+    subprocess.call('sudo wpa_supplicant -iwlan0 -Dwext -c /etc/wpa_supplicant/wpa_supplicant.conf &'.split(' '))
+    subprocess.call(['sudo', 'dhcpcd'])
 
 def _restart_dev():
     subprocess.call(['reboot'])
